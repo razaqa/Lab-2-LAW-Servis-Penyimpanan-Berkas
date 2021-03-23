@@ -1,11 +1,13 @@
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import FileSerializer
 
 class UploadFileAPIView(APIView):
     parser_classes = [MultiPartParser, FormParser]
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         serializer = FileSerializer(data=request.data)
